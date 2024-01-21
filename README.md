@@ -11,10 +11,6 @@ This repository provides the code and sample data that can reproduce the results
 ## Data
 
 
-Our data application study of school admission is based on this [publicly available data](https://www.openicpsr.org/openicpsr/project/112645/version/V1/view?path=/openicpsr/112645/fcr:versions/V1/data/data-AER-1.dta&type=file). The pre-processing procedure is demonstrated in the `Code/preprocess.R`, with the data dictionary available. 
-
-`Data/data-AER-1.dta` is the original data file and `Data/analysis.dat.RData` is the data used for analysis in `Code/realdata.R`. 
-
 
 
 ## Code
@@ -22,8 +18,6 @@ Our data application study of school admission is based on this [publicly availa
 - `Code/simple_sim.R`: generates the main simulation studies with five, individual-specific cutoffs and ran simulations while varying the value of a parameter(s) that could create the bias for each analysis. Both of a sharp and a fuzzy regression discontinuity design can be considered. 
 
 - `Code/cluster_sim.R`: generates the simulation studies with cluster-level cutoffs 
-
-- `Code/preprocess.R`: illustrates the pre-processing procedure from the original data
 
 - `Code/realdata.R`: analyzes the real data application studies using the administrative data from Romania. There are 21 towns available each of which has own cutoff for entering the best school. 
 

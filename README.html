@@ -382,12 +382,6 @@ the results in the manuscript.</p>
 </div>
 <div id="data" class="section level2">
 <h2>Data</h2>
-<p>Our data application study of school admission is based on this <a href="https://www.openicpsr.org/openicpsr/project/112645/version/V1/view?path=/openicpsr/112645/fcr:versions/V1/data/data-AER-1.dta&amp;type=file">publicly
-available data</a>. The pre-processing procedure is demonstrated in the
-<code>Code/preprocess.R</code>, with the data dictionary available.</p>
-<p><code>Data/data-AER-1.dta</code> is the original data file and
-<code>Data/analysis.dat.RData</code> is the data used for analysis in
-<code>Code/realdata.R</code>.</p>
 </div>
 <div id="code" class="section level2">
 <h2>Code</h2>
@@ -395,12 +389,9 @@ available data</a>. The pre-processing procedure is demonstrated in the
 <li><p><code>Code/simple_sim.R</code>: generates the main simulation
 studies with five, individual-specific cutoffs and ran simulations while
 varying the value of a parameter(s) that could create the bias for each
-analysis. Both of a sharp and a fuzzy regression discontinuity design
-can be considered.</p></li>
+analysis</p></li>
 <li><p><code>Code/cluster_sim.R</code>: generates the simulation studies
 with cluster-level cutoffs</p></li>
-<li><p><code>Code/preprocess.R</code>: illustrates the pre-processing
-procedure from the original data</p></li>
 <li><p><code>Code/realdata.R</code>: analyzes the real data application
 studies using the administrative data from Romania. There are 21 towns
 available each of which has own cutoff for entering the best

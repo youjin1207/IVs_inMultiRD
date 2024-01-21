@@ -1,11 +1,5 @@
-library(rdlocrand)
-library(sensitivitymv)
-library(senstrat)
-library(MatchIt)
-library(rddtools)
-## with the Data/analysis.dat
-load("Data/analysis.dat.RData")
-gamma.val = 1
+## with the analysis.dat
+gamma.val = 2.5
 n.ef = 13
 p.val = rep(NA, n.ef) # save the p-values
 caliper.val = 1.0
@@ -46,8 +40,9 @@ for(k in 1:n.ef){
 }
 
 
+mean(combine.p)
 ## Fisher's method
-v = 13 # the minimum number of valid evidence factors
+v = 9 # the minimum number of valid evidence factors
 p.order = p.val[order(p.val)][(n.ef-v+1):n.ef]
 truncatedP(p.order, trunc = 1)
 
