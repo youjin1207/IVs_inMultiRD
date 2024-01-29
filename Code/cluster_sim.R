@@ -24,7 +24,7 @@ for(r in 1:n.rep){
   
   tmp.C = runif(nc, 0, 1) 
   C = rep(tmp.C, each = nn)
-  #W = rnorm(n, -0.5*C, 1)
+  #W = rnorm(n, -0.5*C, 1) # correlated W and C
   W = runif(n, 0, 1)
   Z = matrix(NA, n, n.ef)
  
@@ -34,7 +34,7 @@ for(r in 1:n.rep){
   }
   Z[,n.ef] = as.integer(W >= C)
   D = as.integer(W >= C)
-  #D = ifelse(W >= C, rbinom(n, 1, 0.9-0.6*C), 0) # consider a fuzzy a
+  #D = ifelse(W >= C, rbinom(n, 1, 0.9-0.6*C), 0) # consider a fuzzy RD
   U = (W >= tmp.C[1] & W < tmp.C[1] + 0.01)
   
   Y0 = Z[,1:(n.ef-1)] %*% lambda + eta*U + 1*W + rnorm(n, 0, 1) 
@@ -68,8 +68,13 @@ for(r in 1:n.rep){
       nj = length(table(match.out$subclass))
       for(j in 1:nj){
         index = index + 1
-        treated = dat$res.Y[which(match.out$subclass == j & eval(parse(text=paste0("dat$Z.", k))) == 1)]
-        control = dat$res.Y[which(match.out$subclass == j & eval(parse(text=paste0("dat$Z.", k))) == 0)]
+        if(k==n.ef){
+          treated = dat$res.Y[which(match.out$subclass == j & eval(parse(text=paste0("dat$Z.", k))) == 1)]
+          control = dat$res.Y[which(match.out$subclass == j & eval(parse(text=paste0("dat$Z.", k))) == 0)]
+        }else{
+          treated = dat$obs.Y[which(match.out$subclass == j & eval(parse(text=paste0("dat$Z.", k))) == 1)]
+          control = dat$obs.Y[which(match.out$subclass == j & eval(parse(text=paste0("dat$Z.", k))) == 0)]
+        }
         outcomes = c(outcomes, c(treated, control)) 
         stratum = c(stratum, rep(index, sum(match.out$subclass == j, na.rm = TRUE)))
         treatments = c(treatments, rep(1,length(treated)), rep(0, length(control))) 

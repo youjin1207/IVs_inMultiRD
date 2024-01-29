@@ -65,8 +65,13 @@ for(r in 1:n.rep){
       nj = length(table(match.out$subclass))
       for(j in 1:nj){
         index = index + 1
-        treated = dat$res.Y[which(match.out$subclass == j & eval(parse(text=paste0("dat$Z.", k))) == 1)]
-        control = dat$res.Y[which(match.out$subclass == j & eval(parse(text=paste0("dat$Z.", k))) == 0)]
+        if(k==n.ef){
+          treated = dat$res.Y[which(match.out$subclass == j & eval(parse(text=paste0("dat$Z.", k))) == 1)]
+          control = dat$res.Y[which(match.out$subclass == j & eval(parse(text=paste0("dat$Z.", k))) == 0)]
+        }else{
+          treated = dat$obs.Y[which(match.out$subclass == j & eval(parse(text=paste0("dat$Z.", k))) == 1)]
+          control = dat$obs.Y[which(match.out$subclass == j & eval(parse(text=paste0("dat$Z.", k))) == 0)]
+        }
         outcomes = c(outcomes, c(treated, control)) 
         stratum = c(stratum, rep(index, sum(match.out$subclass == j, na.rm = TRUE)))
         treatments = c(treatments, rep(1,length(treated)), rep(0, length(control))) 

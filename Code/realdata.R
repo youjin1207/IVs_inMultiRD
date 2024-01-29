@@ -5,10 +5,10 @@ library(MatchIt)
 library(rddtools)
 ## with the Data/analysis.dat
 load("Data/analysis.dat.RData")
-gamma.val = 1
+gamma.val = 2.50
 n.ef = 13
 p.val = rep(NA, n.ef) # save the p-values
-caliper.val = 1.0
+caliper.val = 0.2
 
 ## for each proposed IV: 
 for(k in 1:n.ef){
@@ -33,8 +33,13 @@ for(k in 1:n.ef){
     nj = length(table(match.out$subclass))
     for(j in 1:nj){
       index = index + 1
-      treated = analysis.dat$res.Y[which(match.out$subclass == j & eval(parse(text=paste0("analysis.dat$X", k))) == 1)]
-      control = analysis.dat$res.Y[which(match.out$subclass == j & eval(parse(text=paste0("analysis.dat$X", k))) == 0)]
+      if(k==n.ef){
+        treated = analysis.dat$res.Y[which(match.out$subclass == j & eval(parse(text=paste0("analysis.dat$X", k))) == 1)]
+        control = analysis.dat$res.Y[which(match.out$subclass == j & eval(parse(text=paste0("analysis.dat$X", k))) == 0)]
+      }else{
+        treated = analysis.dat$Y[which(match.out$subclass == j & eval(parse(text=paste0("analysis.dat$X", k))) == 1)]
+        control = analysis.dat$Y[which(match.out$subclass == j & eval(parse(text=paste0("analysis.dat$X", k))) == 0)]
+      }
       outcomes = c(outcomes, c(treated, control)) 
       stratum = c(stratum, rep(index, sum(match.out$subclass == j, na.rm = TRUE)))
       treatments = c(treatments, rep(1,length(treated)), rep(0, length(control))) 
@@ -44,12 +49,12 @@ for(k in 1:n.ef){
     p.val[k] = test.results$Result["P-value"]
   }
 }
-
+print(round(p.val, 3))
 
 ## Fisher's method
-v = 13 # the minimum number of valid evidence factors
+v = 12 # the minimum number of valid evidence factors
 p.order = p.val[order(p.val)][(n.ef-v+1):n.ef]
-truncatedP(p.order, trunc = 1)
+round(truncatedP(p.order),3)
 
 pdf("Figure/realdata.pdf", width = 10, height = 7)
 par(mfrow = c(1,1), cex.lab = 1.7, cex.axis = 1.5, 
