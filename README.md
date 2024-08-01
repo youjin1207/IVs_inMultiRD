@@ -15,6 +15,18 @@ Our data application study of school admission is based on this [publicly availa
 
 `Data/data-AER-1.dta` is the original data file and `Data/analysis.dat.RData` is the data used for analysis in `Code/realdata.R`. 
 
+- `Y`: Baccalaureate exam score
+- `D`: An indicator of entering the best school in town
+- `C`: Cutoff
+- `Students`: Student ID
+- `Towns`: Towns ID
+- `W`: Transition score 
+- `X1`-`X12`: List of potential cutoff-based IVs 
+- `X13`: Indicator of `W` >= `C` 
+- `res.Y`: Transformed outcomes (residuals from the third-degree polynomial regression model on `W`)
+
+
+
 
 
 ## Code
